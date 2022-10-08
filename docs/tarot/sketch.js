@@ -6,7 +6,7 @@ function setup() {
   createCanvas(720, 400);
   
   token = new tarotToken();
-  token.setCoords(10, 10);
+  token.setCoords(101, 101, 83);
  
 }
 
@@ -42,23 +42,26 @@ function polygon(x, y, radius, npoints) {
 function tarotToken() {
 	let coordX = 0;
 	let coordY = 0;
-	let ratio = 82;
+	let ratio = 83;
 	
 	this.update = function() {
 	
 	};
 	
 	this.display = function() {
+	
+	  print(this.coordX + "   " + this.coordY + "   " + this.ratio);
 	  push();
-	  translate(coordX, coordY);
-	  polygon(0, 0, 82, 6);
+	  translate(this.coordX, this.coordY);
+	  polygon(0, 0, this.ratio, 6);
 	  pop();
 	
 	};
 	
-	this.setCoords = function(newX, newY) {
+	this.setCoords = function(newX, newY, ratio) {
 		this.coordX = newX;
 		this.coordY = newY;
+		this.ratio = ratio;
 	
 	};
 }
