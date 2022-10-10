@@ -1,12 +1,17 @@
 
 let snowflakes = []; // array to hold snowflake objects
 let token;
+let cnv;
+let tokens = [];
 
 function setup() {
-  createCanvas(720, 400);
+  cnv = createCanvas(720, 400);
+  cnv.mouseClicked(onSelected);
   
   token = new tarotToken();
   token.setCoords(101, 101, 83);
+  
+  tokens.push(token);
  
 }
 
@@ -25,6 +30,22 @@ function draw() {
   polygon(0, 0, 82, 6);
   pop();
   */
+}
+
+function onSelected() {
+	print("clicked " + mouseX + " ; " + mouseY + " l:" + tokens.length);
+	
+	for(let e of tokens) {
+		print(e);
+		
+		if(e.intersects(mouseX, mouseY)) {
+			print("intersects");
+		} else {
+			print("NOT");
+		}
+		
+	}
+	
 }
 
 
@@ -50,7 +71,7 @@ function tarotToken() {
 	
 	this.display = function() {
 	
-	  print(this.coordX + "   " + this.coordY + "   " + this.ratio);
+	  //print(this.coordX + "   " + this.coordY + "   " + this.ratio);
 	  push();
 	  translate(this.coordX, this.coordY);
 	  polygon(0, 0, this.ratio, 6);
@@ -64,6 +85,18 @@ function tarotToken() {
 		this.ratio = ratio;
 	
 	};
+	
+	this.intersects = function(clicX, clicY) {
+		print("clicX:" + clicX + " clicY:" + clicY );
+		var d = dist(this.coordX, this.coordY, clicX, clicY);
+		if(d < this.ratio ) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	
+	}
 }
 
 // snowflake class
