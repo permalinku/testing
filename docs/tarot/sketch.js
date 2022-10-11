@@ -3,23 +3,45 @@ let snowflakes = []; // array to hold snowflake objects
 let token;
 let cnv;
 let tokens = [];
+let tokensTotal = 3;
 
 function setup() {
   cnv = createCanvas(720, 400);
   cnv.mouseClicked(onSelected);
   
-  token = new tarotToken();
-  token.setCoords(101, 101, 83);
+  let posX = 101;
+  let posY = 101;
+  let tokenSep = 167;
   
-  tokens.push(token);
+  //token = new tarotToken();
+  //token.setCoords(101, 101, 83);
+  for(let i = 0; i < tokensTotal; i++) {
+	  token = new tarotToken();
+	  //print(posX + " ; "+ posY + "  ; " + tokenRadio); 
+	  token.setCoords(posX, posY, 83);
+	  posX += (tokenSep + 5);
+	  
+	  tokens.push(token);
+	  
+  }
+  
+  //tokens.push(token);
  
 }
 
 function draw() {
  
   background(102);
-  token.update();
-  token.display();
+  
+  let t;
+  for(let i = 0; i < tokensTotal; i++) {
+	  t = tokens[i];
+	  t.update();
+	  t.display();
+  }
+  
+  //token.update();
+  //token.display();
 
   /*
   push();
@@ -94,8 +116,6 @@ function tarotToken() {
 		} else {
 			return false;
 		}
-		
-	
 	}
 }
 
