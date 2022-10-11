@@ -105,6 +105,10 @@ function tarotToken() {
 	  fill(this.r, this.g, this.b);
 	  polygon(0, 0, this.ratio, 6);
 	  pop();
+	  
+	  if(this.shown) {
+		  image(card, this.coordX - 42, this.coordY - 71, 83, 143);
+	  }
 	
 	};
 	
@@ -117,7 +121,10 @@ function tarotToken() {
 		this.g = 0;
 		this.b = 0;
 		
-		card = loadImage('cards/carta-bastos-1.jpg');
+		//https://permalinku.github.io/testing/tarot/cards/carta-bastos-1.jpg
+		//card = loadImage('cards/carta-bastos-1.jpg');
+		card = loadImage('https://permalinku.github.io/testing/tarot/cards/carta-bastos-1.jpg');
+		print(card);
 	
 	};
 	
