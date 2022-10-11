@@ -55,15 +55,17 @@ function draw() {
 }
 
 function onSelected() {
-	print("clicked " + mouseX + " ; " + mouseY + " l:" + tokens.length);
+	//print("clicked " + mouseX + " ; " + mouseY + " l:" + tokens.length);
 	
 	for(let e of tokens) {
-		print(e);
+		//print(e);
 		
 		if(e.intersects(mouseX, mouseY)) {
-			print("intersects");
+			e.g = 255;
+			e.shown = true;
+			//print("intersects");
 		} else {
-			print("NOT");
+			//print("NOT");
 		}
 		
 	}
@@ -87,6 +89,10 @@ function tarotToken() {
 	let coordY = 0;
 	let ratio = 83;
 	
+	let r, g, b;
+	let card;
+	let shown = false;
+	
 	this.update = function() {
 	
 	};
@@ -96,6 +102,7 @@ function tarotToken() {
 	  //print(this.coordX + "   " + this.coordY + "   " + this.ratio);
 	  push();
 	  translate(this.coordX, this.coordY);
+	  fill(this.r, this.g, this.b);
 	  polygon(0, 0, this.ratio, 6);
 	  pop();
 	
@@ -105,11 +112,17 @@ function tarotToken() {
 		this.coordX = newX;
 		this.coordY = newY;
 		this.ratio = ratio;
+		
+		this.r = 255;
+		this.g = 0;
+		this.b = 0;
+		
+		card = loadImage('cards/carta-bastos-1.jpg');
 	
 	};
 	
 	this.intersects = function(clicX, clicY) {
-		print("clicX:" + clicX + " clicY:" + clicY );
+		//print("clicX:" + clicX + " clicY:" + clicY );
 		var d = dist(this.coordX, this.coordY, clicX, clicY);
 		if(d < this.ratio ) {
 			return true;
