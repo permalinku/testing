@@ -3,25 +3,35 @@ let snowflakes = []; // array to hold snowflake objects
 let token;
 let cnv;
 let tokens = [];
-let tokensTotal = 3;
+let tokensCol = 5;
+let tokensRow = 3;
+let startPosX = 101;
+let startPosY = 101;
 
 function setup() {
   cnv = createCanvas(720, 400);
   cnv.mouseClicked(onSelected);
   
-  let posX = 101;
-  let posY = 101;
+  let posX = startPosX;
+  let posY = startPosY;
   let tokenSep = 167;
+  let tokenRowSep = 160;
   
   //token = new tarotToken();
   //token.setCoords(101, 101, 83);
-  for(let i = 0; i < tokensTotal; i++) {
-	  token = new tarotToken();
-	  //print(posX + " ; "+ posY + "  ; " + tokenRadio); 
-	  token.setCoords(posX, posY, 83);
-	  posX += (tokenSep + 5);
+  for(let r = 0; r < tokensRow; r++) {
+	  for(let c = 0; c < tokensCol; c++) {
 	  
-	  tokens.push(token);
+		  //print(r + ";" + c + "    posX:" + posX + "   posY:" + posY);
+		  token = new tarotToken();
+		  
+		  token.setCoords(posX, posY, 83);
+		  posX += (tokenSep + 5);
+		  
+		  tokens.push(token);
+	  }
+	  posY += tokenRowSep;
+	  posX = startPosX;
 	  
   }
   
@@ -33,12 +43,25 @@ function draw() {
  
   background(102);
   
+  
+  for(let r = 0; r < tokensRow; r++) {
+      for(let c = 0; c < tokensCol; c++) {
+	  
+		 // print((c * tokensCol) + r);
+		 t = tokens[(r * tokensCol) + c];
+		 t.update();
+		 t.display();
+	  }
+  }
+  
+  /*
   let t;
-  for(let i = 0; i < tokensTotal; i++) {
+  for(let i = 0; i < tokensCol; i++) {
 	  t = tokens[i];
 	  t.update();
 	  t.display();
   }
+  */
   
   //token.update();
   //token.display();
@@ -61,8 +84,10 @@ function onSelected() {
 		//print(e);
 		
 		if(e.intersects(mouseX, mouseY)) {
-			e.g = 255;
-			e.shown = true;
+			if(!e.shown) {
+				e.g = 255;
+				e.shown = true;
+			}
 			//print("intersects");
 		} else {
 			//print("NOT");
@@ -124,7 +149,7 @@ function tarotToken() {
 		//https://permalinku.github.io/testing/tarot/cards/carta-bastos-1.jpg
 		//card = loadImage('cards/carta-bastos-1.jpg');
 		card = loadImage('https://permalinku.github.io/testing/tarot/cards/carta-bastos-1.jpg');
-		print(card);
+		//print(card);
 	
 	};
 	
