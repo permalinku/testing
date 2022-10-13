@@ -3,10 +3,11 @@ let snowflakes = []; // array to hold snowflake objects
 let token;
 let cnv;
 let tokens = [];
-let tokensCol = 5;
-let tokensRow = 3;
-let startPosX = 101;
-let startPosY = 101;
+let tokensCol = 7;
+let tokensRow = 8;
+let startPosX = 45;
+let startPosY = 45;
+let maso = [];
 
 function setup() {
   cnv = createCanvas(720, 400);
@@ -16,6 +17,9 @@ function setup() {
   let posY = startPosY;
   let tokenSep = 167;
   let tokenRowSep = 160;
+  
+  createAndMix();
+  print(maso);
   
   //token = new tarotToken();
   //token.setCoords(101, 101, 83);
@@ -85,7 +89,6 @@ function onSelected() {
 		
 		if(e.intersects(mouseX, mouseY)) {
 			if(!e.shown) {
-				e.g = 255;
 				e.shown = true;
 			}
 			//print("intersects");
@@ -97,6 +100,9 @@ function onSelected() {
 	
 }
 
+function createAndMix() {
+	maso = "l45";
+}
 
 function polygon(x, y, radius, npoints) {
   let angle = TWO_PI / npoints;
@@ -114,7 +120,9 @@ function tarotToken() {
 	let coordY = 0;
 	let ratio = 83;
 	
-	let r, g, b;
+	let r = 0;
+	let g = 255;
+	let b = 0;
 	let card;
 	let shown = false;
 	
@@ -126,13 +134,19 @@ function tarotToken() {
 	
 	  //print(this.coordX + "   " + this.coordY + "   " + this.ratio);
 	  push();
-	  translate(this.coordX, this.coordY);
-	  fill(this.r, this.g, this.b);
+	  translate(startPosX + this.coordX, startPosY + this.coordY);
+	  //fill(this.r, this.g, this.b);
+	  //fill(0, 255, 255);
+	  if(this.shown)
+		  fill(255, 255, 0);
+	  else
+		  fill(0, 255, 0);
+	  
 	  polygon(0, 0, this.ratio, 6);
 	  pop();
 	  
 	  if(this.shown) {
-		  image(card, this.coordX - 42, this.coordY - 71, 83, 143);
+		  image(card, this.coordX + 3, this.coordY - 27, 83, 143);
 	  }
 	
 	};
