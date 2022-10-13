@@ -383,6 +383,7 @@ function tarotToken() {
 			   
 		}
 		print("daCard:" + daCard + " imgPath:" + imgPath); 
+		card = loadImage(imgPath);
 	}
 }
 
