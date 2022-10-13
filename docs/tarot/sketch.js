@@ -39,6 +39,8 @@ function setup() {
 	  
   }
   
+  applyDeck();
+  
   //tokens.push(token);
  
 }
@@ -101,7 +103,30 @@ function onSelected() {
 }
 
 function createAndMix() {
-	maso = "l45";
+	maso = [];
+	maso.push("b01", "b02", "b03", "b04", "b05", "b06", "b07", "b08", "b09", "b10", "b11", "b12", "b13", "b14");
+	maso.push("c01", "c02", "c03", "c04", "c05", "c06", "c07", "c08", "c09", "c10", "c11", "c12", "c13", "c14");
+	maso.push("e01", "e02", "e03", "e04", "e05", "e06", "e07", "e08", "e09", "e10", "e11", "e12", "e13", "e14");
+	maso.push("o01", "o02", "o03", "o04", "o05", "o06", "o07", "o08", "o09", "o10", "o11", "o12", "o13", "o14");
+	
+	let otherIx = 0;
+	let otherCard;
+	
+	for(let i = 0; i < maso.length; i++) {
+		otherIx = int(random(0, maso.length));
+		otherCard = maso[otherIx];
+		//print("eeee " + otherCard);
+		maso[otherIx] = maso[i];
+		maso[i] = otherCard;
+	}
+	
+}
+
+function applyDeck() {
+	
+	for(let i = 0; i < maso.length; i++) {
+		tokens[i].applyCard(maso[i]);
+	}
 }
 
 function polygon(x, y, radius, npoints) {
@@ -175,6 +200,189 @@ function tarotToken() {
 		} else {
 			return false;
 		}
+	}
+	
+	this.applyCard = function(daCard) {
+		//print("daCard:" + daCard);
+		let imgPath;
+		
+		if(this.shown) {
+			return;
+		}
+		
+		switch(daCard) {
+			case "b01":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-bastos-1.jpg';
+			   break;
+			case "b02":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-bastos-2.jpg';
+			   break;
+			case "b03":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-bastos-3.jpg';
+			   break;
+			case "b04":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-bastos-4.jpg';
+			   break;
+			case "b05":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-bastos-5.jpg';
+			   break;
+			case "b06":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-bastos-6.jpg';
+			   break;
+			case "b07":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-bastos-7.jpg';
+			   break;
+			case "b08":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-bastos-8.jpg';
+			   break;
+			case "b09":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-bastos-9.jpg';
+			   break;
+			case "b10":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-bastos-10.jpg';
+			   break;
+			case "b11":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-bastos-11.jpg';
+			   break;
+			case "b12":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-bastos-12.jpg';
+			   break;
+			case "b13":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-bastos-13.jpg';
+			   break;
+			case "b14":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-bastos-14.jpg';
+			   break;
+			case "c01":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-copas-1.jpg';
+			   break;
+			case "c02":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-copas-2.jpg';
+			   break;
+			case "c03":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-copas-3.jpg';
+			   break;
+			case "c04":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-copas-4.jpg';
+			   break;
+			case "c05":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-copas-5.jpg';
+			   break;
+			case "c06":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-copas-6.jpg';
+			   break;
+			case "c07":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-copas-7.jpg';
+			   break;
+			case "c08":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-copas-8.jpg';
+			   break;
+			case "c09":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-copas-9.jpg';
+			   break;
+			case "c10":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-copas-10.jpg';
+			   break;
+			case "c11":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-copas-11.jpg';
+			   break;
+			case "c12":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-copas-12.jpg';
+			   break;
+			case "c13":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-copas-13.jpg';
+			   break;
+			case "c14":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-copas-14.jpg';
+			   break;			   
+			case "e01":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-espadas-1.jpg';
+			   break;
+			case "e02":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-espadas-2.jpg';
+			   break;
+			case "e03":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-espadas-3.jpg';
+			   break;
+			case "e04":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-espadas-4.jpg';
+			   break;
+			case "e05":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-espadas-5.jpg';
+			   break;
+			case "e06":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-espadas-6.jpg';
+			   break;
+			case "e07":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-espadas-7.jpg';
+			   break;
+			case "e08":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-espadas-8.jpg';
+			   break;
+			case "e09":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-espadas-9.jpg';
+			   break;
+			case "e10":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-espadas-10.jpg';
+			   break;
+			case "e11":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-espadas-11.jpg';
+			   break;
+			case "e12":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-espadas-12.jpg';
+			   break;
+			case "e13":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-espadas-13.jpg';
+			   break;
+			case "e14":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-espadas-14.jpg';
+			   break;
+			case "o01":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-oro-1.jpg';
+			   break;
+			case "o02":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-oro-2.jpg';
+			   break;
+			case "o03":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-oro-3.jpg';
+			   break;
+			case "o04":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-oro-4.jpg';
+			   break;
+			case "o05":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-oro-5.jpg';
+			   break;
+			case "o06":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-oro-6.jpg';
+			   break;
+			case "o07":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-oro-7.jpg';
+			   break;
+			case "o08":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-oro-8.jpg';
+			   break;
+			case "o09":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-oro-9.jpg';
+			   break;
+			case "o10":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-oro-10.jpg';
+			   break;
+			case "o11":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-oro-11.jpg';
+			   break;
+			case "o12":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-oro-12.jpg';
+			   break;
+			case "o13":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-oro-13.jpg';
+			   break;
+			case "o14":
+			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-oro-14.jpg';
+			   break;
+
+			   
+		}
+		print("daCard:" + daCard + " imgPath:" + imgPath); 
 	}
 }
 
