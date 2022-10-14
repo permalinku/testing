@@ -102,6 +102,12 @@ function onSelected() {
 	
 }
 
+function mouseDragged() {
+	
+	let d = dist(mouseX, mouseY, pmouseX, pmouseY);
+	print("mouse dragged " + d);
+}
+
 function createAndMix() {
 	maso = [];
 	maso.push("b01", "b02", "b03", "b04", "b05", "b06", "b07", "b08", "b09", "b10", "b11", "b12", "b13", "b14");
