@@ -8,6 +8,7 @@ let tokensRow = 8;
 let startPosX = 45;
 let startPosY = 45;
 let maso = [];
+let debug = !true;
 
 function setup() {
   cnv = createCanvas(720, 400);
@@ -105,7 +106,27 @@ function onSelected() {
 function mouseDragged() {
 	
 	let d = dist(mouseX, mouseY, pmouseX, pmouseY);
-	print("mouse dragged " + d);
+	print("startPosX:" + startPosX + " startPosY:" + startPosY);
+	
+	if(startPosX > 65) {
+		startPosX = 65;		
+	}
+	else if(startPosX < -464) {
+		startPosX = -464;
+    }	
+	else {
+		startPosX -= (pmouseX - mouseX);
+	}
+	
+	if(startPosY > 65) {
+		startPosY = 65;
+	}
+	else if(startPosY < -907) {
+		startPosY = -907;
+	}
+	else {
+		startPosY -= (pmouseY - mouseY);
+	}
 }
 
 function createAndMix() {
@@ -177,7 +198,11 @@ function tarotToken() {
 	  pop();
 	  
 	  if(this.shown) {
-		  image(card, this.coordX + 3, this.coordY - 27, 83, 143);
+		  image(card, startPosX + this.coordX - 41, startPosY + this.coordY - 71, 83, 143);
+	  }
+	  
+	  if(debug) {
+		  circle(startPosX + this.coordX, startPosY + this.coordY, this.ratio);
 	  }
 	
 	};
@@ -200,7 +225,7 @@ function tarotToken() {
 	
 	this.intersects = function(clicX, clicY) {
 		//print("clicX:" + clicX + " clicY:" + clicY );
-		var d = dist(this.coordX, this.coordY, clicX, clicY);
+		var d = dist(startPosX + this.coordX, startPosY + this.coordY, clicX, clicY);
 		if(d < this.ratio ) {
 			return true;
 		} else {
@@ -388,7 +413,7 @@ function tarotToken() {
 
 			   
 		}
-		print("daCard:" + daCard + " imgPath:" + imgPath); 
+		//print("daCard:" + daCard + " imgPath:" + imgPath); 
 		card = loadImage(imgPath);
 	}
 }
