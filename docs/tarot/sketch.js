@@ -29,7 +29,7 @@ function setup() {
   let posXIInc = 266;
   
   createAndMix();
-  print(maso);
+  //print(maso);
   
   //token = new tarotToken();
   //token.setCoords(101, 101, 83);
