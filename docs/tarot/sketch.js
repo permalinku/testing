@@ -117,10 +117,10 @@ function draw() {
 function onSelected() {
 	//print("clicked " + mouseX + " ; " + mouseY + " l:" + tokens.length);
 	let timeDiff = millis() - lastDragT;
-	//print(timeDiff);
+	print(timeDiff);
 	
-	if(timeDiff < 80) {
-		//print("returned");
+	if(timeDiff < 300) {
+		print("returned");
 		return;
 	}
 	
