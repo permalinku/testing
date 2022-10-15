@@ -72,6 +72,11 @@ function setup() {
   
   applyDeck();
   
+  // revert some
+  for(let m = 0; m < 14; m++) {
+	  
+  }
+  
   //tokens.push(token);
  
 }
@@ -220,12 +225,15 @@ function tarotToken() {
 	let b = 0;
 	let card;
 	let shown = false;
+	let reverted = false;
 	
 	this.update = function() {
 	
 	};
 	
 	this.display = function() {
+		
+		//this.reverted = true;
 	
 	  //print(this.coordX + "   " + this.coordY + "   " + this.ratio);
 	  push();
@@ -241,7 +249,18 @@ function tarotToken() {
 	  pop();
 	  
 	  if(this.shown) {
-		  image(card, startPosX + this.coordX - 41, startPosY + this.coordY - 71, 83, 143);
+		  if(!this.reverted) {
+			 image(card, startPosX + this.coordX - 41, startPosY + this.coordY - 71, 83, 143);
+		  } 
+		  else {
+			  push();
+			  //translate(width / 2, height / 2);
+			  translate(card.width / 2, card.height / 2);
+	          rotate(PI / 180 * 180);
+		      //imageMode(CENTER);
+			  image(card, startPosX + this.coordX - 41, startPosY + this.coordY - 71, 83, 143);
+			  pop();
+		  }
 	  }
 	  
 	  if(debug) {
