@@ -9,6 +9,9 @@ let startPosX = 45;
 let startPosY = 45;
 let maso = [];
 let debug = !true;
+let startXI = 60;
+
+let lastDragT = 0;
 
 function setup() {
   cnv = createCanvas(720, 400);
@@ -17,7 +20,13 @@ function setup() {
   let posX = startPosX;
   let posY = startPosY;
   let tokenSep = 167;
-  let tokenRowSep = 160;
+  let tokenSepP = 267;
+  
+  let tokenRowSep = 70;
+  //let tokenRowSep = 160;
+  let startPosXI = 179;
+  let posXI = startPosXI;
+  let posXIInc = 266;
   
   createAndMix();
   print(maso);
@@ -30,13 +39,34 @@ function setup() {
 		  //print(r + ";" + c + "    posX:" + posX + "   posY:" + posY);
 		  token = new tarotToken();
 		  
+		  if((r % 2) == 0)
+		  {
+			  //print(r + " es par");
+			  token.setCoords(posX, posY, 83);
+			  posX += tokenSepP;
+		  }
+		  else {
+			  //print(r + " es impar");
+			  token.setCoords(posXI, posY, 83);
+		      posXI += posXIInc;
+		  }
+		  /*
 		  token.setCoords(posX, posY, 83);
 		  posX += (tokenSep + 5);
-		  
+		  */
 		  tokens.push(token);
 	  }
-	  posY += tokenRowSep;
-	  posX = startPosX;
+	  
+	  if((r % 2) == 0)
+	  {
+		 posY += tokenRowSep;
+		 posX = startPosX;
+	  }
+	  else {
+		 posY += tokenRowSep * 1.25;
+		 posX = startPosX;
+		 posXI = startPosXI;
+	  }
 	  
   }
   
@@ -86,6 +116,13 @@ function draw() {
 
 function onSelected() {
 	//print("clicked " + mouseX + " ; " + mouseY + " l:" + tokens.length);
+	let timeDiff = millis() - lastDragT;
+	//print(timeDiff);
+	
+	if(timeDiff < 80) {
+		//print("returned");
+		return;
+	}
 	
 	for(let e of tokens) {
 		//print(e);
@@ -106,13 +143,14 @@ function onSelected() {
 function mouseDragged() {
 	
 	let d = dist(mouseX, mouseY, pmouseX, pmouseY);
-	print("startPosX:" + startPosX + " startPosY:" + startPosY);
+	//print("startPosX:" + startPosX + " startPosY:" + startPosY);
+	
 	
 	if(startPosX > 65) {
 		startPosX = 65;		
 	}
-	else if(startPosX < -464) {
-		startPosX = -464;
+	else if(startPosX < -1176) {
+		startPosX = -1176;
     }	
 	else {
 		startPosX -= (pmouseX - mouseX);
@@ -121,12 +159,17 @@ function mouseDragged() {
 	if(startPosY > 65) {
 		startPosY = 65;
 	}
-	else if(startPosY < -907) {
-		startPosY = -907;
+	else if(startPosY < -313) {
+		startPosY = -313;
 	}
 	else {
 		startPosY -= (pmouseY - mouseY);
 	}
+	
+	//startPosX -= (pmouseX - mouseX);
+	//startPosY -= (pmouseY - mouseY);
+	
+	lastDragT = millis();
 }
 
 function createAndMix() {
