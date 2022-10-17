@@ -78,6 +78,8 @@ function setup() {
   }
   
   //tokens.push(token);
+  
+  //fullscreen(true);
  
 }
 
