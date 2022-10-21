@@ -72,9 +72,13 @@ function setup() {
   
   applyDeck();
   
+  let tok;
   // revert some
-  for(let m = 0; m < 14; m++) {
-	  //let i = random(0, 56);
+  for(let m = 0; m < 14; m++)  {
+	  let i = int(random(0, 56));
+	  //print("revert " + i + "m:" + m);
+	  tok = tokens[i];
+	  tok.reversed = true;
 	  //print(i);
   }
   
@@ -229,7 +233,9 @@ function tarotToken() {
 	let card;
 	let cardR;
 	let shown = false;
-	let reverted = false;
+	let reversed = false;
+	
+	let debPathR;
 	
 	this.update = function() {
 	
@@ -237,7 +243,7 @@ function tarotToken() {
 	
 	this.display = function() {
 		
-		//this.reverted = true;
+		//this.reversed = true;
 	
 	  //print(this.coordX + "   " + this.coordY + "   " + this.ratio);
 	  push();
@@ -253,17 +259,13 @@ function tarotToken() {
 	  pop();
 	  
 	  if(this.shown) {
-		  if(!this.reverted) {
+		  if(!this.reversed) {
 			 image(card, startPosX + this.coordX - 41, startPosY + this.coordY - 71, 83, 143);
 		  } 
 		  else {
-			  push();
-			  //translate(width / 2, height / 2);
-			  translate(card.width / 2, card.height / 2);
-	          rotate(PI / 180 * 180);
-		      //imageMode(CENTER);
-			  image(card, startPosX + this.coordX - 41, startPosY + this.coordY - 71, 83, 143);
-			  pop();
+			  print(debPathR);
+			  image(cardR, startPosX + this.coordX - 41, startPosY + this.coordY - 71, 83, 143);
+			  
 		  }
 	  }
 	  
@@ -537,7 +539,8 @@ function tarotToken() {
 		}
 		//print("daCard:" + daCard + " imgPath:" + imgPath); 
 		card = loadImage(imgPath);
-		print(imgPathR);
+		//print(imgPathR);
+		debPathR = imgPathR;
 		cardR = loadImage(imgPathR);
 		
 	}
