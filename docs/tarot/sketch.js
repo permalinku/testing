@@ -12,6 +12,10 @@ let debug = !true;
 let startXI = 60;
 
 let lastDragT = 0;
+let isTokenSelected = false;
+let selToken;
+
+
 
 function setup() {
   cnv = createCanvas(720, 400);
@@ -103,45 +107,43 @@ function draw() {
 	  }
   }
   
-  /*
-  let t;
-  for(let i = 0; i < tokensCol; i++) {
-	  t = tokens[i];
-	  t.update();
-	  t.display();
+  if(isTokenSelected) {
+	  //print("draw selToken:" + selToken);
+	  /*
+	  if(selToken != null) {
+		 image(selToken, 0, 0);
+	  }
+	  */
   }
-  */
   
-  //token.update();
-  //token.display();
-
-  /*
-  push();
-  translate(width * 0.2, height * 0.5);
-  
-  
-  //rotate(frameCount / 200.0);
-  polygon(0, 0, 82, 6);
-  pop();
-  */
 }
 
 function onSelected() {
-	//print("clicked " + mouseX + " ; " + mouseY + " l:" + tokens.length);
-	let timeDiff = millis() - lastDragT;
-	print(timeDiff);
 	
-	if(timeDiff < 500) {
-		print("returned");
+	if(isTokenSelected) {
 		return;
 	}
+	//print("clicked " + mouseX + " ; " + mouseY + " l:" + tokens.length);
+	let timeDiff = millis() - lastDragT;
+	//print(timeDiff);
+	
+	if(timeDiff < 500) {
+		//print("returned");
+		return;
+	}
+	
 	
 	for(let e of tokens) {
 		//print(e);
 		
 		if(e.intersects(mouseX, mouseY)) {
 			if(!e.shown) {
+				isTokenSelected = true;
 				e.shown = true;
+				this.selToken = e.currentImg();
+				//print("onSelected selToken:" + selToken + " tarotToken(e).currentImg();:" + tarotToken(e).currentImg());
+				//print("onSelected:" + JSON.stringify(this.selToken));
+				print("onSelected:" + JSON.stringify(e));
 			}
 			//print("intersects");
 		} else {
@@ -156,6 +158,9 @@ function mouseDragged() {
 	
 	let d = dist(mouseX, mouseY, pmouseX, pmouseY);
 	//print("startPosX:" + startPosX + " startPosY:" + startPosY);
+	if(isTokenSelected) {
+		return;
+	}
 	
 	
 	if(startPosX > 65) {
@@ -284,6 +289,9 @@ function tarotToken() {
 		this.g = 0;
 		this.b = 0;
 		
+		this.reversed = false;
+		this.selToken = null;
+		
 		//https://permalinku.github.io/testing/tarot/cards/carta-bastos-1.jpg
 		//card = loadImage('cards/carta-bastos-1.jpg');
 		//card = loadImage('https://permalinku.github.io/testing/tarot/cards/carta-bastos-1.jpg');
@@ -300,6 +308,18 @@ function tarotToken() {
 			return false;
 		}
 	}
+	
+	this.currentImg = function() {
+		//print("en currentImg reversed:" + this.reversed);
+		if(this.reversed) {
+			return this.cardR;
+		}
+		else {
+			return this.card;
+		}
+		return this.card;
+	}
+	
 	
 	this.applyCard = function(daCard) {
 		//print("daCard:" + daCard);
@@ -369,6 +389,7 @@ function tarotToken() {
 			   break;
 			case "c01":
 			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-copas-1.jpg';
+			   imgPathR = 'https://permalinku.github.io/testing/tarot/cards/r/carta-copas-1.jpg';
 			   break;
 			case "c02":
 			   imgPath = 'https://permalinku.github.io/testing/tarot/cards/carta-copas-2.jpg';
@@ -537,10 +558,9 @@ function tarotToken() {
 
 			   
 		}
-		//print("daCard:" + daCard + " imgPath:" + imgPath); 
 		card = loadImage(imgPath);
-		//print(imgPathR);
 		debPathR = imgPathR;
+		
 		cardR = loadImage(imgPathR);
 		
 	}
