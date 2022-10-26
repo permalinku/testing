@@ -14,6 +14,7 @@ let startXI = 60;
 let lastDragT = 0;
 let isTokenSelected = false;
 let selToken;
+let selPath;
 
 
 
@@ -33,24 +34,20 @@ function setup() {
   let posXIInc = 266;
   
   createAndMix();
-  //print(maso);
   
   //token = new tarotToken();
   //token.setCoords(101, 101, 83);
   for(let r = 0; r < tokensRow; r++) {
 	  for(let c = 0; c < tokensCol; c++) {
 	  
-		  //print(r + ";" + c + "    posX:" + posX + "   posY:" + posY);
 		  token = new tarotToken();
 		  
 		  if((r % 2) == 0)
 		  {
-			  //print(r + " es par");
 			  token.setCoords(posX, posY, 83);
 			  posX += tokenSepP;
 		  }
 		  else {
-			  //print(r + " es impar");
 			  token.setCoords(posXI, posY, 83);
 		      posXI += posXIInc;
 		  }
@@ -58,6 +55,7 @@ function setup() {
 		  token.setCoords(posX, posY, 83);
 		  posX += (tokenSep + 5);
 		  */
+		  token.shown = false;
 		  tokens.push(token);
 	  }
 	  
@@ -80,10 +78,8 @@ function setup() {
   // revert some
   for(let m = 0; m < 14; m++)  {
 	  let i = int(random(0, 56));
-	  //print("revert " + i + "m:" + m);
 	  tok = tokens[i];
 	  tok.reversed = true;
-	  //print(i);
   }
   
   //tokens.push(token);
@@ -108,12 +104,14 @@ function draw() {
   }
   
   if(isTokenSelected) {
-	  //print("draw selToken:" + selToken);
 	  /*
 	  if(selToken != null) {
 		 image(selToken, 0, 0);
 	  }
 	  */
+	  
+	  //card = loadImage(imgPath);
+	  print("selPath:" + selPath);
   }
   
 }
@@ -121,43 +119,63 @@ function draw() {
 function onSelected() {
 	
 	if(isTokenSelected) {
+		
 		return;
 	}
-	//print("clicked " + mouseX + " ; " + mouseY + " l:" + tokens.length);
 	let timeDiff = millis() - lastDragT;
-	//print(timeDiff);
 	
 	if(timeDiff < 500) {
-		//print("returned");
 		return;
 	}
 	
+	let curT;
 	
+	for(let c = 0; c < tokens.length; c++) {
+			
+		curT = tokens[c];
+		//print("curT:" + curT + " tokens " + c + " = " + tokens[c] + "intersects:" + tokens[c].intersects(mouseX, mouseY) + " shown:" + tokens[c].shown + " reversed:" + tokens[c].reversed + " card:" + tokens[c].currentImg());
+		
+		if(curT.intersects(mouseX, mouseY)) {
+			if(!curT.shown) {
+				isTokenSelected = true;
+				curT.shown = true;
+				selPath = curT.currentImg();
+			}
+		}
+	}
+	
+	/*
 	for(let e of tokens) {
-		//print(e);
 		
 		if(e.intersects(mouseX, mouseY)) {
 			if(!e.shown) {
 				isTokenSelected = true;
 				e.shown = true;
-				this.selToken = e.currentImg();
-				//print("onSelected selToken:" + selToken + " tarotToken(e).currentImg();:" + tarotToken(e).currentImg());
-				//print("onSelected:" + JSON.stringify(this.selToken));
+				//this.selToken = e.currentImg();
+				if(e.reversed) {
+					this.selToken = e.cardR;
+				}
+				else {
+					this.selToken = e.card;
+				}
+				print("path: " + e.debPathR);
+								
 				print("onSelected:" + JSON.stringify(e));
+				
 			}
-			//print("intersects");
 		} else {
 			//print("NOT");
 		}
 		
+		
 	}
+	*/
 	
 }
 
 function mouseDragged() {
 	
 	let d = dist(mouseX, mouseY, pmouseX, pmouseY);
-	//print("startPosX:" + startPosX + " startPosY:" + startPosY);
 	if(isTokenSelected) {
 		return;
 	}
@@ -202,7 +220,6 @@ function createAndMix() {
 	for(let i = 0; i < maso.length; i++) {
 		otherIx = int(random(0, maso.length));
 		otherCard = maso[otherIx];
-		//print("eeee " + otherCard);
 		maso[otherIx] = maso[i];
 		maso[i] = otherCard;
 	}
@@ -241,6 +258,7 @@ function tarotToken() {
 	let reversed = false;
 	
 	let debPathR;
+	let debPath;
 	
 	this.update = function() {
 	
@@ -249,8 +267,8 @@ function tarotToken() {
 	this.display = function() {
 		
 		//this.reversed = true;
+	  let finalCard;
 	
-	  //print(this.coordX + "   " + this.coordY + "   " + this.ratio);
 	  push();
 	  translate(startPosX + this.coordX, startPosY + this.coordY);
 	  //fill(this.r, this.g, this.b);
@@ -266,11 +284,17 @@ function tarotToken() {
 	  if(this.shown) {
 		  if(!this.reversed) {
 			 image(card, startPosX + this.coordX - 41, startPosY + this.coordY - 71, 83, 143);
+			 finalCard = card;
 		  } 
 		  else {
-			  print(debPathR);
-			  image(cardR, startPosX + this.coordX - 41, startPosY + this.coordY - 71, 83, 143);
+			 print(debPathR);
+			 image(cardR, startPosX + this.coordX - 41, startPosY + this.coordY - 71, 83, 143);
+			 finalCard = cardR;
 			  
+		  }
+		  
+		  if(isTokenSelected) {
+			  image(finalCard, startPosX + this.coordX - 41, startPosY + this.coordY - 71, 83, 143);
 		  }
 	  }
 	  
@@ -295,34 +319,30 @@ function tarotToken() {
 		//https://permalinku.github.io/testing/tarot/cards/carta-bastos-1.jpg
 		//card = loadImage('cards/carta-bastos-1.jpg');
 		//card = loadImage('https://permalinku.github.io/testing/tarot/cards/carta-bastos-1.jpg');
-		//print(card);
 	
 	};
 	
 	this.intersects = function(clicX, clicY) {
-		//print("clicX:" + clicX + " clicY:" + clicY );
 		var d = dist(startPosX + this.coordX, startPosY + this.coordY, clicX, clicY);
 		if(d < this.ratio ) {
 			return true;
 		} else {
 			return false;
 		}
-	}
+	};
 	
 	this.currentImg = function() {
-		//print("en currentImg reversed:" + this.reversed);
 		if(this.reversed) {
-			return this.cardR;
+			return this.debPathR;
 		}
 		else {
-			return this.card;
+			return this.debPath;
 		}
-		return this.card;
-	}
+		return this.debPath;
+	};
 	
 	
 	this.applyCard = function(daCard) {
-		//print("daCard:" + daCard);
 		let imgPath;
 		let imgPathR;
 		
@@ -559,11 +579,11 @@ function tarotToken() {
 			   
 		}
 		card = loadImage(imgPath);
-		debPathR = imgPathR;
-		
 		cardR = loadImage(imgPathR);
 		
-	}
+		this.debPathR = imgPathR;
+		this.debPath = imgPath;
+	};
 }
 
 // snowflake class
