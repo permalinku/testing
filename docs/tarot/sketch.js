@@ -104,6 +104,14 @@ function draw() {
   }
   
   if(isTokenSelected) {
+	  //print("selToken:" + selToken + " JSON.stringify(selToken):" + JSON.stringify(selToken));
+	  print("JSON.stringify(selToken):" + JSON.stringify(selToken));
+	  if(selToken.reversed) {
+		  print("reversed:" + selToken.cardR);
+	  }
+	  else {
+		  print("normal:" + selToken.card);
+	  }
 	  /*
 	  if(selToken != null) {
 		 image(selToken, 0, 0);
@@ -111,7 +119,7 @@ function draw() {
 	  */
 	  
 	  //card = loadImage(imgPath);
-	  print("selPath:" + selPath);
+	  //print("selPath:" + selPath);
   }
   
 }
@@ -140,6 +148,7 @@ function onSelected() {
 				isTokenSelected = true;
 				curT.shown = true;
 				selPath = curT.currentImg();
+				selToken = curT;
 			}
 		}
 	}
@@ -314,7 +323,7 @@ function tarotToken() {
 		this.b = 0;
 		
 		this.reversed = false;
-		this.selToken = null;
+		//this.selToken = null;
 		
 		//https://permalinku.github.io/testing/tarot/cards/carta-bastos-1.jpg
 		//card = loadImage('cards/carta-bastos-1.jpg');
@@ -329,6 +338,16 @@ function tarotToken() {
 		} else {
 			return false;
 		}
+	};
+	
+	this.currentCard = function() {
+		if(this.reversed) {
+			return this.cardR;
+		}
+		else {
+			return this.card;
+		}
+		return this.card;
 	};
 	
 	this.currentImg = function() {
