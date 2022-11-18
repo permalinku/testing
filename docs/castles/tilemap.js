@@ -25,6 +25,8 @@ function aTilemap() {
   this.setWorld = function(widthInTiles, heightInTiles) {
 	  this.wInTiles = widthInTiles;
 	  this.hInTiles = heightInTiles;
+	  this.defaultTile = loadImage(this.defaultTilePath);
+	  
 	  print("setWorld:" + this.wInTiles + "x" + this.hInTiles);
 	  //this.defaultTile = image(tilePath, 0, 0);
 	  // continuar por aca, luego de las dimensiones hay que continuar con la creacion de tiles
