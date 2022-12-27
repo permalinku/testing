@@ -10,6 +10,7 @@ function aTilemap() {
   this.hInTiles;
   
   this.daTiles = [];
+  this.daTilePath = [];
   
   this.update = function() {
 	  print("tile update");
@@ -30,6 +31,9 @@ function aTilemap() {
 	  this.wInTiles = widthInTiles;
 	  this.hInTiles = heightInTiles;
 	  this.defaultTile = loadImage(this.defaultTilePath);
+	  this.daTilePath[0] = this.defaultTilePath;
+	  
+	  //print(this.daTilePath[0]);
 	  
 	  print("setWorld:" + this.wInTiles + "x" + this.hInTiles);
 	  
@@ -41,16 +45,12 @@ function aTilemap() {
 			  w = ((r * this.wInTiles) + c);
 			  
 			  this.daTiles[w] = 0;
-			  //print("r:" + r + " x c:" + c + " i:" + ((r * this.wInTiles) + c) );		
 
               //print(this.getDaTile(r,c));			  
 		  }		  
 	  }
 	  
-	  print(this.daTiles);
-	  
-	  
-	  
+	  print(this.daTiles);  
 	  
   };
   
