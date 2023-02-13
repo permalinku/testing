@@ -38,6 +38,8 @@ function draw() {
   */
   noStroke();
   
+  
+  
   push();
   translate(-200, 0);
   //rotateZ(frameCount * 0.01);
@@ -52,7 +54,7 @@ function draw() {
   rotateY(frameCount * 0.01);
   texture(daTile);
   plane(100, 100);
-  pop()
+  pop();
 
 }
 
