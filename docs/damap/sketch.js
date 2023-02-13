@@ -2,7 +2,7 @@ let daTile;
 
 function preload() {
 
-  daTile = loadImage('images/hexagon.png');
+  daTile = loadImage('https://permalinku.github.io/testing/damap/images/hexagon.png');
 }
 function setup() {
   
@@ -36,15 +36,23 @@ function draw() {
   ambientMaterial(250);
   sphere(120, 64);
   */
+  noStroke();
   
   push();
   translate(-200, 0);
-  rotateZ(frameCount * 0.01);
-  rotateX(frameCount * 0.01);
+  //rotateZ(frameCount * 0.01);
+  //rotateX(frameCount * 0.01);
   rotateY(frameCount * 0.01);
   texture(daTile);
   plane(100, 100);
   pop();
+  
+  push();
+  translate(-100, 0);
+  rotateY(frameCount * 0.01);
+  texture(daTile);
+  plane(100, 100);
+  pop()
 
 }
 
