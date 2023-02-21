@@ -1,12 +1,22 @@
-let daTile;
+let daTileImg;
+let testTile;
 
 function preload() {
 
-  daTile = loadImage('https://permalinku.github.io/testing/damap/images/hexagon.png');
+  daTileImg = loadImage('https://permalinku.github.io/testing/damap/images/hexagon.png');
 }
 function setup() {
   
   createCanvas(710, 400, WEBGL);
+  
+  testTile = new daTile();
+  
+  testTile.setPos(-300, 0);
+  
+  testTile.setDims(100, 100);
+  
+  testTile.setTileImage(daTileImg);
+  
 }
 
 function draw() {
@@ -44,17 +54,19 @@ function draw() {
   translate(-200, 0);
   //rotateZ(frameCount * 0.01);
   //rotateX(frameCount * 0.01);
-  rotateY(frameCount * 0.01);
-  texture(daTile);
+  //rotateY(frameCount * 0.01);
+  texture(daTileImg);
   plane(100, 100);
   pop();
   
   push();
   translate(-100, 0);
-  rotateY(frameCount * 0.01);
-  texture(daTile);
+  //rotateY(frameCount * 0.01);
+  texture(daTileImg);
   plane(100, 100);
   pop();
+  
+  testTile.draw();
 
 }
 
