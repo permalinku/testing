@@ -1,5 +1,6 @@
 let daTileImg;
 let testTile;
+let testTile2;
 
 function preload() {
 
@@ -9,13 +10,15 @@ function setup() {
   
   createCanvas(710, 400, WEBGL);
   
-  testTile = new daTile();
-  
-  testTile.setPos(-300, 0);
-  
-  testTile.setDims(100, 100);
-  
+  testTile = new daTile();  
+  testTile.setPos(-300, 0);  
+  testTile.setDims(100, 100);  
   testTile.setTileImage(daTileImg);
+  
+  testTile2 = new daTile();  
+  testTile2.setPos(0, 0);  
+  testTile2.setDims(100, 100);  
+  testTile2.setTileImage(daTileImg);
   
 }
 
@@ -49,7 +52,7 @@ function draw() {
   noStroke();
   
   
-  
+  /*
   push();
   translate(-200, 0);
   //rotateZ(frameCount * 0.01);
@@ -65,6 +68,10 @@ function draw() {
   texture(daTileImg);
   plane(100, 100);
   pop();
+  
+  testTile.draw();
+  testTile2.draw();
+  */
   
   testTile.draw();
 
