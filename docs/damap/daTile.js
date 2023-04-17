@@ -40,5 +40,9 @@ function daTile() {
 	  //print("setTileImage: myImage:" + this.myImage);
   };
   
+  this.debugPrint = function() {
+	  return "Da hello!";
+  };
+  
   
 }

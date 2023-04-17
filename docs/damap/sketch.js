@@ -1,6 +1,7 @@
 let daTileImg;
 let testTile;
 let testTile2;
+let board;
 
 function preload() {
 
@@ -10,15 +11,23 @@ function setup() {
   
   createCanvas(710, 400, WEBGL);
   
+  board = new daHexMap();
+  board.setDims(3, 4);
+  board.setDefaultTile(daTileImg, 67, 67);
+  board.setPos(11, 11);
+  board.runInit();
+  
+  
   testTile = new daTile();  
   testTile.setPos(-300, 0);  
   testTile.setDims(100, 100);  
   testTile.setTileImage(daTileImg);
-  
+  /*
   testTile2 = new daTile();  
   testTile2.setPos(0, 0);  
   testTile2.setDims(100, 100);  
   testTile2.setTileImage(daTileImg);
+  */
   
 }
 
@@ -68,22 +77,12 @@ function draw() {
   texture(daTileImg);
   plane(100, 100);
   pop();
-  
-  testTile.draw();
-  testTile2.draw();
   */
   
+  
+  
   testTile.draw();
+  
+  board.draw();
 
-}
-
-function polygon(x, y, radius, npoints) {
-  let angle = TWO_PI / npoints;
-  beginShape();
-  for (let a = 0; a < TWO_PI; a += angle) {
-    let sx = x + cos(a) * radius;
-    let sy = y + sin(a) * radius;
-    vertex(sx, sy);
-  }
-  endShape(CLOSE);
 }
