@@ -12,12 +12,15 @@ function daTile() {
   };
   */
   this.draw = function() {
+	  //print("daTile draw: this.myImage:" + this.myImage);
 	  //print("tile draw");
 	  //image(this.myImage, this.posX, this.posY);
 	  push();
 	  translate(this.posX, this.posY);
-	  //rotateY(frameCount * 0.01);
-	  texture(this.myImage);
+	  rotateY(frameCount * 0.01);
+	  if(this.myImage != null) {
+		texture(this.myImage);
+	  }
 	  plane(this.tileW, this.tileH);
 	  pop();
   };
@@ -40,8 +43,14 @@ function daTile() {
 	  //print("setTileImage: myImage:" + this.myImage);
   };
   
+  this.setTileImageByPath = function(daTilePath) {	  
+	  
+	  this.myImage = loadImage(daTilePath);
+	  //print("setTileImageByPath: this.myImage:" + this.myImage);
+  };
+  
   this.debugPrint = function() {
-	  return "Da hello!";
+	  return this.posX + "x" + this.posY + " w:" + this.tileW + " h:" + this.tileH + " myImage:" + this.myImage ;
   };
   
   

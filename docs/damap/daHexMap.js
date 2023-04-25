@@ -4,7 +4,7 @@ function daHexMap() {
   this.heightInTiles = 0;
   this.tileWidthInPx = 0;
   this.tileHeightInPx = 0;
-  this.defaultTileImg = null;
+  this.defaultTileImgPath = "";
   
   this.origPosX = 0;
   this.origPosY = 0;
@@ -18,12 +18,15 @@ function daHexMap() {
 	  this.heightInTiles = daHinTiles;	 
   };
   
-  this.setDefaultTile = function(daTileImg, daWinPx, daHinPx) {
-	  print("setDefaultTile");
+  this.setDefaultTile = function(daTileImgPath, daWinPx, daHinPx) {
+	 print("setDefaultTile:" + daTileImgPath);
 	  
+	// print("daTileImg:" + JSON.stringify(daTileImg));
 	 this.tileWidthInPx = daWinPx;
      this.tileHeightInPx = daHinPx;
-     this.defaultTileImg = daTileImg;
+     this.defaultTileImgPath = daTileImgPath;
+	 
+	 //print("this.defaultTileImg:" + JSON.stringify(this.defaultTileImg));
   };
   
   this.setPos = function(boardPosX, boardPosY) {
@@ -50,8 +53,17 @@ function daHexMap() {
 			  
 			  
 			  ht = new daTile();
+			  ht.posX = this.origPosX + (c * this.tileWidthInPx);
+			  ht.posY = this.origPosY + (r * this.tileHeightInPx);
+			  
+			  //this.tileW
+			  ht.tileW = this.tileWidthInPx;
+			  ht.tileH = this.tileHeightInPx;
+			  
+			  ht.setTileImageByPath(this.defaultTileImgPath);
+			  
 			  this.daTiles[w] = ht;
-			  print("JSON.stringify(ht):" + JSON.stringify(ht));
+			  //print("JSON.stringify(ht):" + JSON.stringify(ht));
 			  //print("runInit w:" + w + " this.daTiles[w]:" + daTile(this.daTiles[w]).debugPrint());
 		 }
 	  }
@@ -59,6 +71,29 @@ function daHexMap() {
   };
   
   this.draw = function() {
+	  //print("draw");
+	 let ht;
+	 let w;
+	  
+	  /*
+	 w = 0;
+	 ht = this.daTiles[w];
+	 print("w:" + w + " ht:" + ht.debugPrint());
+	 ht.draw();
+	  */
+	  
+	 for(let r = 0; r < this.heightInTiles; r++) {
+		  
+		for(let c = 0; c < this.widthInTiles; c++) {
+			 
+			w = ((r * this.widthInTiles) + c);
+			ht = this.daTiles[w];
+			print("w:" + w + " ht:" + ht.debugPrint());
+			ht.draw();
+			 
+		 }
+	  }
+	  
 	 
   };
 }

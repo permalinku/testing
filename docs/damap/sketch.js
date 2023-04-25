@@ -3,6 +3,8 @@ let testTile;
 let testTile2;
 let board;
 
+let daTilePath = 'https://permalinku.github.io/testing/damap/images/hexagon.png' ;
+
 function preload() {
 
   daTileImg = loadImage('https://permalinku.github.io/testing/damap/images/hexagon.png');
@@ -10,10 +12,11 @@ function preload() {
 function setup() {
   
   createCanvas(710, 400, WEBGL);
+  print("daTilePath:" + daTilePath);
   
   board = new daHexMap();
   board.setDims(3, 4);
-  board.setDefaultTile(daTileImg, 67, 67);
+  board.setDefaultTile(daTilePath, 67, 67);
   board.setPos(11, 11);
   board.runInit();
   
