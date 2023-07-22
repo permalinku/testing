@@ -17,7 +17,7 @@ function setup() {
   board = new daHexMap();
   board.setDims(3, 4);
   board.setDefaultTile(daTilePath, 67, 67);
-  board.setPos(11, 11);
+  board.setPos(0, 0);
   board.runInit();
   
   

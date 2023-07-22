@@ -65,6 +65,11 @@ function daHexMap() {
 			  this.daTiles[w] = ht;
 			  //print("JSON.stringify(ht):" + JSON.stringify(ht));
 			  //print("runInit w:" + w + " this.daTiles[w]:" + daTile(this.daTiles[w]).debugPrint());
+			  
+			  if((r % 2) != 0){
+			      ht.posX += Math.round(this.tileWidthInPx / 2);
+				  ht.posY -= Math.round(this.tileHeightInPx / 2);
+			  }
 		 }
 	  }
 	 
@@ -90,7 +95,8 @@ function daHexMap() {
 			ht = this.daTiles[w];
 			print("w:" + w + " ht:" + ht.debugPrint());
 			ht.draw();
-			 
+			
+			
 		 }
 	  }
 	  
