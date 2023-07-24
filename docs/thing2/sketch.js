@@ -4,6 +4,10 @@
 
 let daDot;
 
+let isDraging = false;
+
+let things = [];
+
 function preload() {
 
   //daTileImg = loadImage('https://permalinku.github.io/testing/damap/images/hexagon.png');
@@ -14,6 +18,7 @@ function setup() {
   daDot = new dotObject();
   
   daDot.setCoords(101, 101);
+  things[0] = daDot;
   
 }
 
@@ -47,12 +52,28 @@ function draw() {
 	curve(73, 24, 73, 61, 15, 65, 15, 65);
 	*/
 	
+	//print("isDraging:" + isDraging);
+	if(isDraging)
+	{
+		
+		if(daDot.intersectsMouse(mouseX, mouseY))
+		{
+			daDot.setCoords(mouseX, mouseY);
+		}
+		
+	}
+	
 	daDot.updateCursor(mouseX, mouseY);
 	daDot.draw();
 	
 }
 
 function mousePressed() {
+	isDraging = true;
+	if(daDot.intersectsMouse(mouseX, mouseY))
+	{		
+		daDot.setCoords(mouseX, mouseY);
+	}
 	
 	/*
 		print("mouse pressed" + mouseX + ";" + mouseY );
@@ -60,6 +81,11 @@ function mousePressed() {
 		if(daDot.intersectsMouse(mouseX, mouseY)) {
 		}
 		*/
+		
+}
+
+function mouseReleased() {
+	isDraging = false;
 }
 
 function dotObject() {
@@ -100,7 +126,7 @@ function dotObject() {
 		this.dotY = pY;
 		this.dotW = 11;
 		
-		print("setCoords:" + this.dotX + ";" + this.dotY);
+		//print("setCoords:" + this.dotX + ";" + this.dotY);
 	
 	};
 	
