@@ -3,6 +3,7 @@
 //let daTilePath = 'https://permalinku.github.io/testing/damap/images/hexagon.png' ;
 
 let daDot;
+let daDot2;
 
 let isDraging = false;
 
@@ -15,10 +16,14 @@ function preload() {
 function setup() {
   
   createCanvas(710, 400, P2D);
-  daDot = new dotObject();
   
+  daDot = new dotObject();  
   daDot.setCoords(101, 101);
   things[0] = daDot;
+  
+  daDot2 = new dotObject();  
+  daDot2.setCoords(203, 203);
+  things[1] = daDot2;
   
 }
 
@@ -52,19 +57,57 @@ function draw() {
 	curve(73, 24, 73, 61, 15, 65, 15, 65);
 	*/
 	
+	let currentDaDot;
+	for (let i = 0; i < things.length; i++) {
+			print("things length:" + things.length + "i:" + i);
+		
+		currentDaDot = things[i];
+			
+		if(currentDaDot.intersectsMouse(mouseX, mouseY)){
+		   //print(isDraging);
+		if(isDraging){
+			currentDaDot.setCoords(mouseX, mouseY);
+		} else {
+			print("updateCursor:" + i);
+			currentDaDot.updateCursor(mouseX, mouseY);
+		}
+				
+		}
+			
+			//console.log(scores[i]);
+			
+		}
+		
 	//print("isDraging:" + isDraging);
 	if(isDraging)
 	{
-		
+/*		
 		if(daDot.intersectsMouse(mouseX, mouseY))
 		{
 			daDot.setCoords(mouseX, mouseY);
 		}
+		if(daDot2.intersectsMouse(mouseX, mouseY))
+		{
+			daDot2.setCoords(mouseX, mouseY);
+		}
+		*/
+		
+		
+		
+		
+		
+		
+
 		
 	}
 	
-	daDot.updateCursor(mouseX, mouseY);
+	
+	//daDot.updateCursor(mouseX, mouseY);
+	//daDot2.updateCursor(mouseX, mouseY);
+	
+	
 	daDot.draw();
+	daDot2.draw();
 	
 }
 
@@ -73,6 +116,10 @@ function mousePressed() {
 	if(daDot.intersectsMouse(mouseX, mouseY))
 	{		
 		daDot.setCoords(mouseX, mouseY);
+	}
+	if(daDot2.intersectsMouse(mouseX, mouseY))
+	{
+		daDot2.setCoords(mouseX, mouseY);
 	}
 	
 	/*
