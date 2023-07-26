@@ -29,86 +29,25 @@ function setup() {
 
 function draw() {
   
-  background(255);
-  
-  
-  /*
-  if(daDot.intersectsMouse(mouseX, mouseY))
-  {
-	  //print("overlap!!!");
-	  cursor(HAND);
-  }
-  else
-  {
-	  cursor(ARROW);
-  }
-	  */
-
-/*
-    noFill();
-	stroke(255, 102, 0);
-	curve(5, 26, 5, 26, 73, 24, 73, 61);
-	*/
-	
-	/*
-	stroke(0);
-	curve(5, 26, 73, 24, 73, 61, 15, 65);
-	stroke(255, 102, 0);
-	curve(73, 24, 73, 61, 15, 65, 15, 65);
-	*/
-	
+	background(255);
+  	
 	let currentDaDot;
+	cursor(ARROW);
+	
 	for (let i = 0; i < things.length; i++) {
-			print("things length:" + things.length + "i:" + i);
-		
+	
 		currentDaDot = things[i];
 			
-		if(currentDaDot.intersectsMouse(mouseX, mouseY)){
-		   //print(isDraging);
-		if(isDraging){
-			currentDaDot.setCoords(mouseX, mouseY);
-		} else {
-			print("updateCursor:" + i);
-			currentDaDot.updateCursor(mouseX, mouseY);
-		}
-				
-		}
-			
-			//console.log(scores[i]);
-			
-		}
-		
-	//print("isDraging:" + isDraging);
-	if(isDraging)
-	{
-/*		
-		if(daDot.intersectsMouse(mouseX, mouseY))
-		{
-			daDot.setCoords(mouseX, mouseY);
-		}
-		if(daDot2.intersectsMouse(mouseX, mouseY))
-		{
-			daDot2.setCoords(mouseX, mouseY);
-		}
-		*/
-		
-		
-		
-		
-		
-		
-
-		
+		if(currentDaDot.intersectsMouse(mouseX, mouseY)){		  
+		    cursor(HAND);
+			if(isDraging){
+				currentDaDot.setCoords(mouseX, mouseY);				
+			} 				
+		}			
 	}
-	
-	
-	//daDot.updateCursor(mouseX, mouseY);
-	//daDot2.updateCursor(mouseX, mouseY);
-	
-	
+		
 	daDot.draw();
-	daDot2.draw();
-	
+	daDot2.draw();	
 }
 
 function mousePressed() {
@@ -133,6 +72,7 @@ function mousePressed() {
 
 function mouseReleased() {
 	isDraging = false;
+	
 }
 
 function dotObject() {
