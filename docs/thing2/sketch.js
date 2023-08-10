@@ -16,6 +16,8 @@ let deb1;
 let diffY = 11;
 let diffX = 11;
 
+let daRecta = null;
+
 
 function preload() {
 
@@ -35,6 +37,8 @@ function setup() {
   
   deb1 = new debugDot();
   deb1.setCoords(daDot2.dotX, daDot2.dotY);
+  
+  daRecta = new rectObject();
   
 }
 
@@ -68,17 +72,23 @@ function draw() {
 		//deb1.setCoords(daDot.dotX + diffX, daDot.dotY + diffY);
 		//print("cerca!");
 		
+		daRecta.create(daDot.dotX, daDot.dotY, daDot2.dotX, daDot2.dotY);
+		
 		if(daRay == null) {
 			daRay = new rayObject();
-			daRay.create(daDot.dotX, daDot.dotY, daDot2.dotX, daDot2.dotY, 11000); 
+			daRay.create(daDot.dotX, daDot.dotY, daDot2.dotX, daDot2.dotY, 11000);
+			
 		}
 		else {
 			daRay.update();
 		}
+		
+		
 	}
 		
 	daDot.draw();
-	daDot2.draw();	
+	daDot2.draw();
+	daRecta.draw();	
 	
 	deb1.draw();
 }
@@ -140,15 +150,12 @@ function rayObject() {
 	this.update = function() {		
 		
 		//print("update " + this.daMillis + " of " + this.daTotalMillis);
-		if((this.daMillis) >= (this.daTotalMillis)) {
+		if(this.daMillis >= this.daTotalMillis) {
 			//print("done");
-			return;
-			
+			return;			
 		}
-		
-		
-		this.daMillis = (millis() - this.daCreationTime);
-		
+				
+		this.daMillis = (millis() - this.daCreationTime);		
 	}
 	
 }
@@ -224,6 +231,61 @@ function debugDot() {
 		fill(c);
 		*/
 		circle(this.dotX, this.dotY, 2);
+	
+	};
+}
+
+function rectObject() {
+	
+	let daM = 0;
+	let daInvM = 0;
+	let daB;
+	
+	let dotAX = 0;
+	let dotAY = 0;
+	
+	let dotBX = 0;
+	let dotBY = 0;
+	
+	
+	this.create = function(pDotAX, pDotAY, pDotBX, pDotBY) {
+		this.dotAX = pDotAX;
+		this.dotAY = pDotAY;
+		
+		this.dotBX = pDotBX;
+		this.dotBY = pDotBY;
+		
+		this.daM = (this.dotBY - this.dotAY) / (this.dotBX - this.dotAX);
+		
+		if(this.daM != 0)
+		{
+			// la pendiente de la perpendicular tiene que ser inversa y opuesta
+			this.daInvM = -1 / this.daM;
+		}
+		else{
+			this.daInvM = 0;
+		}
+		
+		// Y = mX + b
+		// b = Y - mX
+		this.daB = this.dotAY - this.daM * this.dotAX;
+		
+		
+		
+		print("rectObject A: " + this.dotAX + ";" + this.dotAY + "  B: " + this.dotBX + ";" + this.dotBY + " daM:" + this.daM + " daInvM:" + this.daInvM);
+	};
+	
+	this.getY = function(daValueX) {
+		return this.daM * this.dotAX + this.daB; 
+	}
+	
+	this.draw = function() {
+		
+		if(this.daM == 0) {
+			return;
+		}
+		
+		line(this.dotAX, this.dotAY, this.dotBX, this.dotBY);
 	
 	};
 }
