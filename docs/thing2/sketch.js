@@ -83,6 +83,9 @@ function draw() {
 			daRay.update();
 		}
 		
+		deb1.dotX = daDot.dotX + ((daDot2.dotX - daDot.dotX) / 2);
+		deb1.dotY = daRecta.getY(deb1.dotX);
+		
 		
 	}
 		
@@ -276,7 +279,12 @@ function rectObject() {
 	};
 	
 	this.getY = function(daValueX) {
-		return this.daM * this.dotAX + this.daB; 
+		
+		if(this.daM == 0) {
+			return 0;
+		}
+		
+		return this.daM * daValueX + this.daB; 
 	}
 	
 	this.draw = function() {
